@@ -2,7 +2,9 @@
 using Configuration.Extensions;
 using DbContext.Extensions;
 using DbRepos;
+using DbRepos.Extensions;
 using Services;
+using Services.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,13 +61,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddInMemoryLogger();
 
 //Inject DbRepos and Services
-builder.Services.AddScoped<AdminDbRepos>();
-builder.Services.AddScoped<CommentsDbRepos>();
-builder.Services.AddScoped<AttractionsDbRepos>();
-
-builder.Services.AddScoped<IAttractionService, AttractionService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<IAdminService, AdminServiceDb>();
+// Gjorde egna extension-metoder för detta
+builder.Services.AddDbRepos();
+builder.Services.AddServices();
 
 var app = builder.Build();
 

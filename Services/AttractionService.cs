@@ -6,15 +6,15 @@ namespace Services;
 
 public class AttractionService : IAttractionService
 {
-    readonly AttractionsDbRepos _repo = null;
+    readonly AttractionsDbRepo _repo = null;
     readonly ILogger<AttractionService> _logger = null;
 
-    public AttractionService(AttractionsDbRepos repo)
+    public AttractionService(AttractionsDbRepo repo)
     {
         _repo = repo;
     }
 
-    public AttractionService(AttractionsDbRepos repo, ILogger<AttractionService> logger)
+    public AttractionService(AttractionsDbRepo repo, ILogger<AttractionService> logger)
     {
         _repo = repo;
         _logger = logger;

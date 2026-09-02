@@ -2,18 +2,18 @@ using Seido.Utilities.SeedGenerator;
 
 namespace Models;
 
-public class Comment : IComment, ISeed<Comment>
+public class Rating : IRating, ISeed<Rating>
 {
     public virtual Guid Id { get; set; }
-    public virtual string Text { get; set; }
     public virtual IAttraction Attraction { get; set; }
     public virtual IUser User { get; set; }
     public virtual DateTime Time { get; set; }
-    public bool Seeded { get; set; }
+    public virtual int Score { get; set; }
+    public virtual bool Seeded { get; set; }
 
-    public virtual Comment Seed(SeedGenerator seeder)
+    public virtual Rating Seed(SeedGenerator seeder)
     {
-        Text = seeder.LatinSentence;
+        Score = seeder.Next(0, 11);
         Seeded = true;
         return this;
     }

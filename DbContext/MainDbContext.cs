@@ -16,6 +16,11 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
 
     public DbSet<AttractionDbm> Attractions { get; set; }
     public DbSet<CommentDbm> Comments { get; set; }
+    public DbSet<RatingDbm> Ratings { get; set; }
+    public DbSet<UserDbm> Users { get; set; }
+    public DbSet<AddressDbm> Addresses { get; set; }
+    public DbSet<CityDbm> Cities { get; set; }
+    public DbSet<CountryDbm> Countries { get; set; }
 
     public MainDbContext() { }
 

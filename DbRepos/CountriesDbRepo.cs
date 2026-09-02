@@ -3,12 +3,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DbRepos;
 
-public class CommentsDbRepos
+public class CountriesDbRepo
 {
-    readonly ILogger<CommentsDbRepos> _logger;
+    readonly ILogger<CountriesDbRepo> _logger;
     readonly MainDbContext _dbContext;
 
-    public CommentsDbRepos(ILogger<CommentsDbRepos> logger, MainDbContext dbContext)
+    public CountriesDbRepo(ILogger<CountriesDbRepo> logger, MainDbContext dbContext)
     {
         _logger = logger;
         _dbContext = dbContext;

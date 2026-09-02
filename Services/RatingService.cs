@@ -4,17 +4,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Services;
 
-public class CommentService : ICommentService
+public class RatingService : IRatingService
 {
     readonly CommentsDbRepo _repo = null;
-    readonly ILogger<CommentService> _logger = null;
+    readonly ILogger<RatingService> _logger = null;
 
-    public CommentService(CommentsDbRepo repo)
+    public RatingService(CommentsDbRepo repo)
     {
         _repo = repo;
     }
 
-    public CommentService(CommentsDbRepo repo, ILogger<CommentService> logger)
+    public RatingService(CommentsDbRepo repo, ILogger<RatingService> logger)
     {
         _repo = repo;
         _logger = logger;
