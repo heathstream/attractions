@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>9a6d1f26-c770-48f4-bede-cb5fb352d4bb</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\05_Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\03b_DbContext\DbContext.csproj" />
+    <ProjectReference Include="..\03c_DbModels\DbModels.csproj" />
+    <ProjectReference Include="..\03a_DbRepos\DbRepos.csproj" />
+    <ProjectReference Include="..\04_Models\Models.csproj" />
+    <ProjectReference Include="..\02_Services\Services.csproj" />
+  </ItemGroup>
+</Project>
