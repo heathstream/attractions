@@ -2,6 +2,7 @@ using DbModels;
 using DbRepos;
 using Microsoft.Build.Framework;
 using Microsoft.Extensions.Logging;
+using Models.Dto;
 
 namespace Services;
 
@@ -10,11 +11,16 @@ public class AttractionService : IAttractionService
     readonly AttractionsDbRepo _repo = null;
     readonly ILogger<AttractionService> _logger = null;
 
-    public async Task<IEnumerable<AttractionDbm>> ReadAttractionsAsync() =>
-        await _repo.ReadAttractionsAsync();
+    public async Task<ResponseListDto<AttractionDbm>> ReadAttractionsAsync(
+        int page,
+        int pageSize
+    ) => await _repo.ReadAttractionsAsync(page, pageSize);
 
-    public async Task<AttractionDbm> ReadAttractionAsync(string idOrName) =>
+    public async Task<ResponseItemDto<AttractionDbm>> ReadAttractionAsync(string idOrName) =>
         await _repo.ReadAttractionAsync(idOrName);
+
+    public async Task<ResponseItemDto<AttractionDbm>> DeleteAttractionAsync(string idOrName) =>
+        await _repo.DeleteAttractionAsync(idOrName);
 
     public AttractionService(AttractionsDbRepo repo)
     {

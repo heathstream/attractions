@@ -1,4 +1,4 @@
-namespace Models;
+namespace Models.Dto;
 
 public class ResponseListDto<T>
 {

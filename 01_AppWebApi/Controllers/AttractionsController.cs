@@ -1,6 +1,6 @@
 using DbModels;
 using Microsoft.AspNetCore.Mvc;
-using Models;
+using Models.Dto;
 using Services;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,18 +17,13 @@ namespace AppWebApi.Controllers
         [HttpGet()]
         [ProducesResponseType(typeof(ResponseListDto<AttractionDbm>), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<IActionResult> Attractions(int page, int pageSize)
+        public async Task<IActionResult> Read(int page, int pageSize)
         {
             try
             {
-                var items = await _service.ReadAttractionsAsync();
-                var responseList = new ResponseListDto<AttractionDbm>()
-                {
-                    Items = items.Skip(page * pageSize).Take(pageSize).ToList(),
-                    Page = page,
-                    PageSize = pageSize,
-                    ItemsInDatabase = items.Count(),
-                };
+                var responseList = await _service.ReadAttractionsAsync(page, pageSize);
+                if (responseList == null || responseList.ItemsInDatabase == 0)
+                    throw new Exception("Could not find any attractions in the database! :(");
                 return Ok(responseList);
             }
             catch (Exception ex)
@@ -39,20 +34,33 @@ namespace AppWebApi.Controllers
 
         [HttpGet()]
         [ProducesResponseType(typeof(ResponseItemDto<AttractionDbm>), 200)]
-        public async Task<IActionResult> Attraction(string idOrName)
+        public async Task<IActionResult> ReadItem(string idOrName)
         {
             try
             {
-                var itemCount = _service.ReadAttractionsAsync().Result.Count();
-                var item = await _service.ReadAttractionAsync(idOrName);
-                if (item == null)
+                var responseItem = await _service.ReadAttractionAsync(idOrName);
+
+                if (responseItem == null)
                     throw new Exception("Could not find an attraction by that name or id! :(");
 
-                var responseItem = new ResponseItemDto<AttractionDbm>()
-                {
-                    Item = item,
-                    ItemsInDatabase = itemCount,
-                };
+                return Ok(responseItem);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete()]
+        [ProducesResponseType(typeof(ResponseItemDto<AttractionDbm>), 200)]
+        public async Task<IActionResult> DeleteItem(string idOrName)
+        {
+            try
+            {
+                var responseItem = await _service.DeleteAttractionAsync(idOrName);
+
+                if (responseItem == null)
+                    throw new Exception("Could not find an attraction by that name or id! :(");
 
                 return Ok(responseItem);
             }
