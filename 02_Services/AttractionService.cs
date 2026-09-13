@@ -1,3 +1,4 @@
+using DbModels;
 using DbRepos;
 using Microsoft.Build.Framework;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,12 @@ public class AttractionService : IAttractionService
     readonly AttractionsDbRepo _repo = null;
     readonly ILogger<AttractionService> _logger = null;
 
+    public async Task<IEnumerable<AttractionDbm>> ReadAttractionsAsync() =>
+        await _repo.ReadAttractionsAsync();
+
+    public async Task<AttractionDbm> ReadAttractionAsync(string idOrName) =>
+        await _repo.ReadAttractionAsync(idOrName);
+
     public AttractionService(AttractionsDbRepo repo)
     {
         _repo = repo;
@@ -19,6 +26,4 @@ public class AttractionService : IAttractionService
         _repo = repo;
         _logger = logger;
     }
-
-    // public Task SeedAsync(int nrOfItems) { }
 }

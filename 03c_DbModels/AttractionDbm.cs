@@ -42,9 +42,6 @@ public class AttractionDbm : Attraction, ISeed<AttractionDbm>
     [JsonIgnore]
     public AddressDbm AddressDbm { get; set; }
 
-    // [Column(TypeName = "varchar(max)")]
-    // public override string Description { get; set; }
-
     public override AttractionDbm Seed(SeedGenerator seeder)
     {
         base.Seed(seeder);

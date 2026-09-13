@@ -16,35 +16,39 @@ public class AdminDbRepo
     private Encryptions _encryptions;
     private readonly MainDbContext _dbContext;
 
-    public async Task SeedAsync(int nrItems)
+    public async Task SeedAsync(
+        int attractionsCount = 1000,
+        int usersCount = 50,
+        int citiesCount = 100,
+        int countriesCount = 4,
+        int addressesCount = 1000
+    )
     {
         //Create a seeder
         var fn = Path.GetFullPath(_seedSource);
         var seeder = new SeedGenerator(fn);
 
         // Basic seeding of models
-        var attractions = seeder.ItemsToList<AttractionDbm>(nrItems);
-        var users = seeder.ItemsToList<UserDbm>(nrItems);
-        var ratings = seeder.ItemsToList<RatingDbm>(nrItems);
-        var comments = seeder.ItemsToList<CommentDbm>(nrItems);
-        var cities = seeder.UniqueItemsToList<CityDbm>(nrItems);
-        var countries = seeder.UniqueItemsToList<CountryDbm>(nrItems);
-        var addresses = seeder.UniqueItemsToList<AddressDbm>(nrItems);
+        var attractions = seeder.ItemsToList<AttractionDbm>(attractionsCount);
+        var users = seeder.ItemsToList<UserDbm>(usersCount);
+        var cities = seeder.UniqueItemsToList<CityDbm>(citiesCount);
+        var countries = seeder.UniqueItemsToList<CountryDbm>(countriesCount);
+        var addresses = seeder.UniqueItemsToList<AddressDbm>(addressesCount);
+        var comments = new List<CommentDbm>();
+        var ratings = new List<RatingDbm>();
 
         // Setting relationships between models
-        ratings.ForEach(r =>
-        {
-            r.AttractionDbm = seeder.FromList(attractions);
-            r.UserDbm = seeder.FromList(users);
-        });
-        comments.ForEach(c =>
-        {
-            c.AttractionDbm = seeder.FromList(attractions);
-            c.UserDbm = seeder.FromList(users);
-        });
+
         cities.ForEach(c => c.CountryDbm = seeder.FromList(countries));
         addresses.ForEach(a => a.CityDbm = seeder.FromList(cities));
-        attractions.ForEach(a => a.AddressDbm = seeder.FromList(addresses));
+        attractions.ForEach(a =>
+        {
+            a.AddressDbm = seeder.FromList(addresses);
+            a.CommentsDbm = seeder.ItemsToList<CommentDbm>(seeder.Next(0, 21));
+            a.RatingsDbm = seeder.ItemsToList<RatingDbm>(seeder.Next(0, 21));
+            comments.AddRange(a.CommentsDbm);
+            ratings.AddRange(a.RatingsDbm);
+        });
 
         // Adding models to DbSets
         _dbContext.Attractions.AddRange(attractions);

@@ -3,13 +3,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "AppWebApi",
+            "name": "01_AppWebApi",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/AppWebApi/bin/Debug/net10.0/AppWebApi.dll",
+            "program": "${workspaceFolder}/01_AppWebApi/bin/Debug/net10.0/AppWebApi.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/AppWebApi",
+            "cwd": "${workspaceFolder}/01_AppWebApi",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
