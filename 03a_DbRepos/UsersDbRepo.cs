@@ -11,11 +11,7 @@ public class UsersDbRepo
     readonly ILogger<UsersDbRepo> _logger;
     readonly MainDbContext _dbContext;
 
-    public async Task<ResponseListDto<UserDbm>> ReadUsersAsync(
-        int page,
-        int pageSize,
-        bool flat = false
-    )
+    public async Task<ResponseListDto<UserDbm>> ReadAsync(int page, int pageSize, bool flat = false)
     {
         var query = flat
             ? _dbContext.Users.AsNoTracking()
@@ -33,7 +29,7 @@ public class UsersDbRepo
         };
     }
 
-    public async Task<ResponseItemDto<UserDbm>> ReadUserAsync(string idOrName, bool flat = false)
+    public async Task<ResponseItemDto<UserDbm>> ReadItemAsync(string idOrName, bool flat = false)
     {
         var query = flat
             ? _dbContext.Users.AsNoTracking().Where(u => u.Id.ToString() == idOrName)
@@ -50,7 +46,7 @@ public class UsersDbRepo
         };
     }
 
-    public async Task<ResponseItemDto<UserDbm>> DeleteUserAsync(string idOrName)
+    public async Task<ResponseItemDto<UserDbm>> DeleteAsync(string idOrName)
     {
         var query = _dbContext
             .Users.AsNoTracking()

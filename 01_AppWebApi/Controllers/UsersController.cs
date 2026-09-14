@@ -21,7 +21,7 @@ namespace AppWebApi.Controllers
         {
             try
             {
-                var responseList = await _service.ReadUsersAsync(page, pageSize);
+                var responseList = await _service.ReadAsync(page, pageSize);
                 if (responseList == null || responseList.ItemsInDatabase == 0)
                     throw new Exception("Could not find any users in the database! :(");
                 return Ok(responseList);
@@ -38,7 +38,7 @@ namespace AppWebApi.Controllers
         {
             try
             {
-                var responseItem = await _service.ReadUserAsync(idOrName);
+                var responseItem = await _service.ReadItemAsync(idOrName);
 
                 if (responseItem == null)
                     throw new Exception("Could not find a user by that name or id! :(");
@@ -57,7 +57,7 @@ namespace AppWebApi.Controllers
         {
             try
             {
-                var responseItem = await _service.DeleteUserAsync(idOrName);
+                var responseItem = await _service.DeleteAsync(idOrName);
 
                 if (responseItem == null)
                     throw new Exception("Could not find a user by that name or id! :(");

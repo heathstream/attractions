@@ -11,16 +11,19 @@ public class AttractionService : IAttractionService
     readonly AttractionsDbRepo _repo = null;
     readonly ILogger<AttractionService> _logger = null;
 
-    public async Task<ResponseListDto<AttractionDbm>> ReadAttractionsAsync(
+    public async Task<ResponseListDto<AttractionDbm>> ReadAsync(
         int page,
-        int pageSize
-    ) => await _repo.ReadAttractionsAsync(page, pageSize);
+        int pageSize,
+        bool flat = false
+    ) => await _repo.ReadAsync(page, pageSize, flat);
 
-    public async Task<ResponseItemDto<AttractionDbm>> ReadAttractionAsync(string idOrName) =>
-        await _repo.ReadAttractionAsync(idOrName);
+    public async Task<ResponseItemDto<AttractionDbm>> ReadItemAsync(
+        string idOrName,
+        bool flat = false
+    ) => await _repo.ReadItemAsync(idOrName, flat);
 
-    public async Task<ResponseItemDto<AttractionDbm>> DeleteAttractionAsync(string idOrName) =>
-        await _repo.DeleteAttractionAsync(idOrName);
+    public async Task<ResponseItemDto<AttractionDbm>> DeleteAsync(string idOrName) =>
+        await _repo.DeleteAsync(idOrName);
 
     public AttractionService(AttractionsDbRepo repo)
     {

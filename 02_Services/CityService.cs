@@ -1,6 +1,8 @@
+using DbModels;
 using DbRepos;
 using Microsoft.Build.Framework;
 using Microsoft.Extensions.Logging;
+using Models.Dto;
 
 namespace Services;
 
@@ -18,5 +20,20 @@ public class CityService : ICityService
     {
         _repo = repo;
         _logger = logger;
+    }
+
+    public Task<ResponseItemDto<CityDbm>> DeleteAsync(string idOrName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ResponseListDto<CityDbm>> ReadAsync(int page, int pageSize, bool flat = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ResponseItemDto<CityDbm>> ReadItemAsync(string idOrName, bool flat = false)
+    {
+        throw new NotImplementedException();
     }
 }

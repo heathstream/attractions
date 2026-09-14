@@ -11,14 +11,17 @@ public class UserService : IUserService
     readonly UsersDbRepo _repo = null;
     readonly ILogger<UserService> _logger = null;
 
-    public async Task<ResponseListDto<UserDbm>> ReadUsersAsync(int page, int pageSize) =>
-        await _repo.ReadUsersAsync(page, pageSize);
+    public async Task<ResponseListDto<UserDbm>> ReadAsync(
+        int page,
+        int pageSize,
+        bool flat = false
+    ) => await _repo.ReadAsync(page, pageSize, flat);
 
-    public async Task<ResponseItemDto<UserDbm>> ReadUserAsync(string idOrName) =>
-        await _repo.ReadUserAsync(idOrName);
+    public async Task<ResponseItemDto<UserDbm>> ReadItemAsync(string idOrName, bool flat = false) =>
+        await _repo.ReadItemAsync(idOrName, flat);
 
-    public async Task<ResponseItemDto<UserDbm>> DeleteUserAsync(string idOrName) =>
-        await _repo.DeleteUserAsync(idOrName);
+    public async Task<ResponseItemDto<UserDbm>> DeleteAsync(string idOrName) =>
+        await _repo.DeleteAsync(idOrName);
 
     public UserService(UsersDbRepo repo)
     {

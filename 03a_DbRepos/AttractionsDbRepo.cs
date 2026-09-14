@@ -11,7 +11,7 @@ public class AttractionsDbRepo
     readonly ILogger<AttractionsDbRepo> _logger;
     readonly MainDbContext _dbContext;
 
-    public async Task<ResponseListDto<AttractionDbm>> ReadAttractionsAsync(
+    public async Task<ResponseListDto<AttractionDbm>> ReadAsync(
         int page,
         int pageSize,
         bool flat = false
@@ -36,7 +36,7 @@ public class AttractionsDbRepo
         };
     }
 
-    public async Task<ResponseItemDto<AttractionDbm>> ReadAttractionAsync(
+    public async Task<ResponseItemDto<AttractionDbm>> ReadItemAsync(
         string idOrName,
         bool flat = false
     )
@@ -61,7 +61,7 @@ public class AttractionsDbRepo
         };
     }
 
-    public async Task<ResponseItemDto<AttractionDbm>> DeleteAttractionAsync(string idOrName)
+    public async Task<ResponseItemDto<AttractionDbm>> DeleteAsync(string idOrName)
     {
         var query = _dbContext
             .Attractions.AsNoTracking()

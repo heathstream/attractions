@@ -21,7 +21,7 @@ namespace AppWebApi.Controllers
         {
             try
             {
-                var responseList = await _service.ReadAttractionsAsync(page, pageSize);
+                var responseList = await _service.ReadAsync(page, pageSize);
                 if (responseList == null || responseList.ItemsInDatabase == 0)
                     throw new Exception("Could not find any attractions in the database! :(");
                 return Ok(responseList);
@@ -38,7 +38,7 @@ namespace AppWebApi.Controllers
         {
             try
             {
-                var responseItem = await _service.ReadAttractionAsync(idOrName);
+                var responseItem = await _service.ReadItemAsync(idOrName);
 
                 if (responseItem == null)
                     throw new Exception("Could not find an attraction by that name or id! :(");
@@ -57,7 +57,7 @@ namespace AppWebApi.Controllers
         {
             try
             {
-                var responseItem = await _service.DeleteAttractionAsync(idOrName);
+                var responseItem = await _service.DeleteAsync(idOrName);
 
                 if (responseItem == null)
                     throw new Exception("Could not find an attraction by that name or id! :(");
